@@ -24,6 +24,87 @@
             </p>
         </header>
 
+        <!-- ─── HELP / INFO ─── -->
+        <section class="help-section">
+            <details class="help-details">
+                <summary>📖 How to use this tool &bull; What is "Shift"?</summary>
+                <div class="help-content">
+                    <div class="help-grid">
+                        <div class="help-card">
+                            <h4>🎯 Quick Start</h4>
+                            <ol>
+                                <li>Pick your <strong>Primary</strong>, <strong>Secondary</strong>, and <strong>Accent</strong> colors</li>
+                                <li>Adjust the <strong>Shift</strong> value (see below)</li>
+                                <li>Click <strong>Generate</strong> to see your palette</li>
+                                <li>Toggle <strong>Dark Mode</strong> using either toggle button</li>
+                                <li><strong>Save</strong> your palette as a preset</li>
+                                <li>Click <strong>Copy CSS</strong> and paste into your Jcink skin</li>
+                            </ol>
+                        </div>
+
+                        <div class="help-card">
+                            <h4>🔧 What is "Shift"?</h4>
+                            <p>The <strong>Shift</strong> value controls how much lighter or darker the variants of your colors are.</p>
+                            <table class="help-table">
+                                <thead>
+                                    <tr>
+                                        <th>Shift Value</th>
+                                        <th>Effect</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>5</strong></td>
+                                        <td>Very subtle — barely noticeable difference</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>12</strong> (default)</td>
+                                        <td>Balanced — good for most designs</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>20</strong></td>
+                                        <td>Dramatic — strong contrast between variants</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>30</strong></td>
+                                        <td>Extreme — very light highlights and very dark shadows</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p class="help-note">
+                                <strong>How it works:</strong> <code>Primary</code> + Shift = <code>Primary Light</code> &bull; 
+                                <code>Primary</code> − Shift = <code>Primary Dark</code>
+                            </p>
+                        </div>
+
+                        <div class="help-card">
+                            <h4>💡 Tips</h4>
+                            <ul>
+                                <li><strong>Start with Shift 12</strong> — it works for most designs</li>
+                                <li><strong>Click any color card</strong> to copy its hex value</li>
+                                <li><strong>Save your favorites</strong> — they stay in your browser</li>
+                                <li><strong>Built-in presets</strong> give you a quick starting point</li>
+                                <li><strong>The palette grid</strong> shows both light AND dark mode colors</li>
+                            </ul>
+                        </div>
+
+                        <div class="help-card">
+                            <h4>🎨 Color Roles</h4>
+                            <ul>
+                                <li><strong>Primary</strong> — Main brand color (headers, links, primary buttons)</li>
+                                <li><strong>Secondary</strong> — Complementary color (nav bars, secondary buttons)</li>
+                                <li><strong>Accent</strong> — Highlights and emphasis (badges, notifications)</li>
+                                <li><strong>Light/Dark neutrals</strong> — Backgrounds, text, borders, table rows</li>
+                            </ul>
+                            <p class="help-note" style="margin-top:0.5rem;">
+                                The 60-30-10 rule: 60% neutrals, 30% primary, 10% accent
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </section>
+
         <!-- ─── CONTROLS ─── -->
         <section class="controls">
             <label>
@@ -38,9 +119,10 @@
                 Accent
                 <input type="color" id="accentColor" value="#f59e0b" />
             </label>
-            <label>
+            <label class="shift-label">
                 Shift
                 <input type="number" id="shiftAmount" value="12" min="5" max="30" />
+                <span class="helper-text">How much lighter/darker</span>
             </label>
             <button class="btn" id="generateBtn">✨ Generate</button>
             <button class="btn btn-secondary" id="randomBtn">🎲 Random</button>
@@ -74,97 +156,219 @@
         </section>
 
         <!-- ─── LIVE FORUM PREVIEW ─── -->
-        <section class="preview-section">
-            <h3>🔬 Live Forum Preview</h3>
+        <section class="preview-section" id="previewSection">
+            <div class="preview-header">
+                <h3>🔬 Live Forum Preview</h3>
+                <button class="btn btn-success" id="previewToggleBtn">🌙 Toggle Dark</button>
+            </div>
             <div id="forumPreview">
-                <!-- Forum Header -->
-                <div class="forum-header">
-                    <h2>🎯 Jcink Community</h2>
-                    <div class="user-info">
-                        👤 Welcome back, <span>Admin</span> &middot;
-                        <a href="#" style="color:inherit;opacity:0.8;">Logout</a>
+
+                <!-- ─── HEADER — Editorial/Dark ─── -->
+                <div class="forum-header" style="background:var(--primary);color:var(--primary-text);padding:1.5rem 2rem;border-bottom:3px solid var(--accent);">
+                    <div>
+                        <div style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;opacity:0.6;font-weight:400;">
+                            ✦ FEATURED ✦
+                        </div>
+                        <h2 style="font-size:1.4rem;font-weight:700;margin:0.2rem 0;letter-spacing:-0.02em;">
+                            <span style="background:var(--accent);color:var(--accent-text);padding:0.1rem 0.6rem;border-radius:2px;font-size:0.8rem;margin-right:0.5rem;">
+                                ∞
+                            </span>
+                            Jcink Community
+                        </h2>
+                        <div style="font-size:0.7rem;opacity:0.7;font-style:italic;letter-spacing:0.05em;">
+                            "Maintain a desired mental state, but not every spring rain will arrive as scheduled."
+                        </div>
+                    </div>
+                    <div class="user-info" style="text-align:right;font-size:0.75rem;opacity:0.8;">
+                        <div style="font-weight:600;font-size:0.85rem;letter-spacing:0.1em;">
+                            @<span style="color:var(--accent);">ADMIN</span>
+                        </div>
+                        <div style="opacity:0.6;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;">
+                            ✦ thirst.03-2 ✦
+                        </div>
+                        <a href="#" style="color:inherit;opacity:0.5;font-size:0.65rem;text-decoration:none;border-bottom:1px dotted currentColor;">
+                            logout
+                        </a>
                     </div>
                 </div>
 
-                <!-- Forum Nav -->
-                <div class="forum-nav">
-                    <a href="#">🏠 Home</a>
-                    <a href="#">📋 Forums</a>
-                    <a href="#">📝 Topics</a>
-                    <a href="#">👥 Members</a>
-                    <a href="#">⚙️ Admin</a>
+                <!-- ─── NAV — Minimal/Dark ─── -->
+                <div class="forum-nav" style="background:var(--bg-dark);color:var(--text-dark);padding:0.5rem 2rem;border-bottom:1px solid var(--border);display:flex;gap:2rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;">
+                    <a href="#" style="color:var(--primary);opacity:1;font-weight:600;border-bottom:2px solid var(--primary);padding-bottom:0.3rem;">↳ seed</a>
+                    <a href="#" style="color:var(--text-dark);opacity:0.5;text-decoration:none;">absorb</a>
+                    <a href="#" style="color:var(--text-dark);opacity:0.5;text-decoration:none;">plump</a>
+                    <a href="#" style="color:var(--text-dark);opacity:0.5;text-decoration:none;">thirst</a>
+                    <a href="#" style="color:var(--text-dark);opacity:0.5;text-decoration:none;margin-left:auto;">✦ 03</a>
                 </div>
 
-                <!-- Forum Content -->
-                <div class="forum-content">
-                    <div class="forum-category">📁 General Discussion</div>
-                    <table class="forum-table">
+                <!-- ─── CONTENT — Editorial Grid ─── -->
+                <div class="forum-content" style="padding:2rem;background:var(--bg);">
+
+                    <!-- Category — Editorial style -->
+                    <div class="forum-category" style="background:var(--primary);color:var(--primary-text);padding:0.6rem 1.2rem;border-radius:0;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;display:flex;justify-content:space-between;align-items:center;margin-bottom:0;">
+                        <span>✧ 汲取养分 / ABSORB</span>
+                        <span style="font-weight:400;font-size:0.55rem;opacity:0.6;letter-spacing:0.1em;">
+                            <span style="background:var(--accent);color:var(--accent-text);padding:0.1rem 0.6rem;border-radius:2px;margin-right:0.4rem;">
+                                ∞
+                            </span>
+                            01. SEED
+                        </span>
+                    </div>
+
+                    <!-- Table — Editorial/Graphic -->
+                    <table class="forum-table" style="border-collapse:collapse;width:100%;font-size:0.8rem;border-left:2px solid var(--primary);border-right:2px solid var(--primary);border-bottom:2px solid var(--primary);">
                         <thead>
-                            <tr>
-                                <th>Topic</th>
-                                <th style="width:80px;">Replies</th>
-                                <th style="width:140px;">Last Post</th>
+                            <tr style="background:var(--bg-dark);color:var(--text-dark);border-bottom:2px solid var(--accent);">
+                                <th style="padding:0.6rem 1rem;text-align:left;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:400;opacity:0.6;">✦ TOPIC</th>
+                                <th style="padding:0.6rem 1rem;text-align:center;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:400;opacity:0.6;width:100px;">↳ SEED</th>
+                                <th style="padding:0.6rem 1rem;text-align:right;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:400;opacity:0.6;width:140px;">✦ LAST</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="row1">
-                                <td><a href="#">📢 Welcome to the community!</a></td>
-                                <td><span class="badge-count">24</span></td>
-                                <td>Today 3:45pm</td>
+                            <!-- Row 1 — Primary accent -->
+                            <tr class="row1" style="background:var(--bg);color:var(--text);border-bottom:1px solid var(--border);">
+                                <td style="padding:0.8rem 1rem;">
+                                    <span style="background:var(--accent);color:var(--accent-text);padding:0.05rem 0.5rem;font-size:0.5rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;border-radius:2px;margin-right:0.5rem;">
+                                        ★ FEATURED
+                                    </span>
+                                    <a href="#" style="color:var(--primary);font-weight:600;text-decoration:none;letter-spacing:-0.01em;">
+                                        THIRST MAKES ME INSPIRED
+                                    </a>
+                                    <div style="font-size:0.6rem;opacity:0.4;margin-top:0.1rem;letter-spacing:0.05em;">
+                                        @thirst · theseedfeelingatease
+                                    </div>
+                                </td>
+                                <td style="padding:0.8rem 1rem;text-align:center;">
+                                    <span style="background:var(--secondary);color:var(--secondary-text);padding:0.1rem 0.8rem;border-radius:2px;font-size:0.6rem;font-weight:600;letter-spacing:0.05em;">
+                                        24
+                                    </span>
+                                </td>
+                                <td style="padding:0.8rem 1rem;text-align:right;font-size:0.65rem;opacity:0.5;letter-spacing:0.05em;">
+                                    03-2 · 3:45pm
+                                </td>
                             </tr>
-                            <tr class="row2">
-                                <td><a href="#">💡 How to customize your Jcink skin</a></td>
-                                <td><span class="badge-count">18</span></td>
-                                <td>Today 2:30pm</td>
+
+                            <!-- Row 2 — Secondary accent -->
+                            <tr class="row2" style="background:var(--row2);color:var(--text);border-bottom:1px solid var(--border);">
+                                <td style="padding:0.8rem 1rem;">
+                                    <span style="background:var(--secondary);color:var(--secondary-text);padding:0.05rem 0.5rem;font-size:0.5rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;border-radius:2px;margin-right:0.5rem;">
+                                        ◆ GUIDE
+                                    </span>
+                                    <a href="#" style="color:var(--primary);font-weight:500;text-decoration:none;">
+                                        PLUMP SPIRIT · 汲取养分
+                                    </a>
+                                    <div style="font-size:0.6rem;opacity:0.4;margin-top:0.1rem;letter-spacing:0.05em;">
+                                        @plumpspir · shape of desire
+                                    </div>
+                                </td>
+                                <td style="padding:0.8rem 1rem;text-align:center;">
+                                    <span style="background:var(--primary);color:var(--primary-text);padding:0.1rem 0.8rem;border-radius:2px;font-size:0.6rem;font-weight:600;letter-spacing:0.05em;">
+                                        18
+                                    </span>
+                                </td>
+                                <td style="padding:0.8rem 1rem;text-align:right;font-size:0.65rem;opacity:0.5;letter-spacing:0.05em;">
+                                    03-1 · 2:30pm
+                                </td>
                             </tr>
-                            <tr class="row1">
-                                <td><a href="#">🎨 Share your palette designs</a></td>
-                                <td><span class="badge-count">9</span></td>
-                                <td>Yesterday 9:15pm</td>
+
+                            <!-- Row 3 — Accent highlight -->
+                            <tr class="row1" style="background:var(--bg);color:var(--text);border-bottom:1px solid var(--border);">
+                                <td style="padding:0.8rem 1rem;">
+                                    <span style="background:var(--primary);color:var(--primary-text);padding:0.05rem 0.5rem;font-size:0.5rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;border-radius:2px;margin-right:0.5rem;">
+                                        ● SHOWCASE
+                                    </span>
+                                    <a href="#" style="color:var(--primary);font-weight:500;text-decoration:none;">
+                                        C · PERFECT GRAPHIC DESIGN
+                                    </a>
+                                    <div style="font-size:0.6rem;opacity:0.4;margin-top:0.1rem;letter-spacing:0.05em;">
+                                        @perfectgraphic · b.shapeofdesire
+                                    </div>
+                                </td>
+                                <td style="padding:0.8rem 1rem;text-align:center;">
+                                    <span style="background:var(--accent);color:var(--accent-text);padding:0.1rem 0.8rem;border-radius:2px;font-size:0.6rem;font-weight:600;letter-spacing:0.05em;">
+                                        9
+                                    </span>
+                                </td>
+                                <td style="padding:0.8rem 1rem;text-align:right;font-size:0.65rem;opacity:0.5;letter-spacing:0.05em;">
+                                    02-4 · 9:15pm
+                                </td>
+                            </tr>
+
+                            <!-- Row 4 — Dark/editorial -->
+                            <tr class="row2" style="background:var(--row2);color:var(--text);">
+                                <td style="padding:0.8rem 1rem;">
+                                    <span style="background:var(--bg-dark);color:var(--text-dark);padding:0.05rem 0.5rem;font-size:0.5rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;border-radius:2px;margin-right:0.5rem;border:1px solid var(--border);">
+                                        ✦ DRAFT
+                                    </span>
+                                    <a href="#" style="color:var(--primary);font-weight:400;text-decoration:none;opacity:0.7;">
+                                        THIRST · THESEEDFEELINGATEASE
+                                    </a>
+                                    <div style="font-size:0.6rem;opacity:0.3;margin-top:0.1rem;letter-spacing:0.05em;">
+                                        @thirst · 14/18
+                                    </div>
+                                </td>
+                                <td style="padding:0.8rem 1rem;text-align:center;">
+                                    <span style="background:var(--border);color:var(--text);padding:0.1rem 0.8rem;border-radius:2px;font-size:0.6rem;font-weight:600;letter-spacing:0.05em;opacity:0.5;">
+                                        4
+                                    </span>
+                                </td>
+                                <td style="padding:0.8rem 1rem;text-align:right;font-size:0.65rem;opacity:0.4;letter-spacing:0.05em;">
+                                    01-7 · 6:20pm
+                                </td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <div class="forum-category" style="margin-top:1.5rem;">🛠️ Support &amp; Feedback</div>
-                    <table class="forum-table">
-                        <thead>
-                            <tr>
-                                <th>Topic</th>
-                                <th style="width:80px;">Replies</th>
-                                <th style="width:140px;">Last Post</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="row1">
-                                <td><a href="#">🐛 Bug report: Dark mode issues</a></td>
-                                <td><span class="badge-count">6</span></td>
-                                <td>Today 11:20am</td>
-                            </tr>
-                            <tr class="row2">
-                                <td><a href="#">✨ Feature request: More color slots</a></td>
-                                <td><span class="badge-count">12</span></td>
-                                <td>Yesterday 6:45pm</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="forum-input-row">
-                        <input class="forum-input" placeholder="Search topics..." />
-                        <button class="forum-btn">🔍 Search</button>
-                        <button class="forum-btn forum-btn-secondary">➕ New Topic</button>
+                    <!-- ─── STATS BAR — All colors ─── -->
+                    <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.5rem;padding:1rem 1.2rem;background:var(--bg-dark);color:var(--text-dark);border-left:4px solid var(--accent);">
+                        <span style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;opacity:0.4;">
+                            ✦ STATS
+                        </span>
+                        <span style="font-size:0.7rem;margin-left:0.5rem;">
+                            <strong style="color:var(--primary);">1,234</strong> topics
+                        </span>
+                        <span style="font-size:0.7rem;">
+                            <strong style="color:var(--secondary);">8,901</strong> posts
+                        </span>
+                        <span style="font-size:0.7rem;">
+                            <strong style="color:var(--accent);">456</strong> members
+                        </span>
+                        <span style="font-size:0.7rem;margin-left:auto;display:flex;align-items:center;gap:0.3rem;">
+                            <span style="display:inline-block;width:6px;height:6px;background:var(--primary);border-radius:50%;"></span>
+                            <span style="opacity:0.5;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.05em;">
+                                online · <strong style="color:var(--text-dark);">89</strong>
+                            </span>
+                        </span>
                     </div>
-                </div>
 
-                <!-- Forum Footer -->
-                <div class="forum-footer">
-                    <span>📊 1,234 topics &bull; 8,901 posts</span>
-                    <div class="pagination">
-                        <span class="active">1</span>
-                        <span>2</span>
-                        <span>3</span>
-                        <span>4</span>
-                        <span>→</span>
+                    <!-- ─── INPUT ROW — Editorial style ─── -->
+                    <div class="forum-input-row" style="display:flex;gap:0.75rem;margin-top:1.5rem;flex-wrap:wrap;">
+                        <input class="forum-input" placeholder="✧ search · thirst · seed · absorb" 
+                               style="flex:1;min-width:150px;padding:0.6rem 1rem;border:2px solid var(--border);background:var(--bg);color:var(--text);font-size:0.75rem;letter-spacing:0.05em;border-radius:2px;font-style:italic;opacity:0.7;" />
+                        <button class="forum-btn" style="background:var(--primary);color:var(--primary-text);border:none;padding:0.6rem 1.5rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;border-radius:2px;font-weight:600;cursor:pointer;transition:all 0.15s;">
+                            ⊹ search
+                        </button>
+                        <button class="forum-btn forum-btn-secondary" style="background:var(--secondary);color:var(--secondary-text);border:none;padding:0.6rem 1.5rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;border-radius:2px;font-weight:600;cursor:pointer;transition:all 0.15s;">
+                            + seed
+                        </button>
+                        <button style="background:var(--accent);color:var(--accent-text);border:none;padding:0.6rem 1.5rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;border-radius:2px;font-weight:600;cursor:pointer;transition:all 0.15s;">
+                            ✦ filter
+                        </button>
                     </div>
+
+                    <!-- ─── PAGINATION — Editorial ─── -->
+                    <div class="forum-footer" style="padding:1rem 0 0 0;margin-top:1.5rem;border-top:2px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:0.65rem;color:var(--text);opacity:0.6;">
+                        <span style="letter-spacing:0.08em;text-transform:uppercase;">
+                            ✧ 14 / 18 · thirst
+                        </span>
+                        <div class="pagination" style="display:flex;gap:0.2rem;">
+                            <span style="padding:0.1rem 0.6rem;border-radius:2px;background:var(--primary);color:var(--primary-text);cursor:pointer;font-weight:600;">01</span>
+                            <span style="padding:0.1rem 0.6rem;border-radius:2px;background:var(--border);color:var(--text);cursor:pointer;opacity:0.5;">02</span>
+                            <span style="padding:0.1rem 0.6rem;border-radius:2px;background:var(--border);color:var(--text);cursor:pointer;opacity:0.5;">03</span>
+                            <span style="padding:0.1rem 0.6rem;border-radius:2px;background:var(--border);color:var(--text);cursor:pointer;opacity:0.5;">→</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -176,6 +380,14 @@
                 <button class="copy-btn" id="copyCssBtn">📋 Copy CSS</button>
             </div>
         </section>
+
+        <!-- ─── FOOTER ─── -->
+        <footer class="footer">
+            <p>
+                Made for Jcink custom skin developers &bull; 
+                <a href="#" onclick="document.querySelector('.help-details').open = true; return false;">Show help</a>
+            </p>
+        </footer>
 
     </div>
 
