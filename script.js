@@ -1,5 +1,5 @@
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// COLOR UTILITIES
+//  COLOR UTILITIES
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function hexToHsl(hex) {
@@ -74,7 +74,7 @@ function randomColor() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// PALETTE GENERATOR
+//  PALETTE GENERATOR
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function generatePalette(primary, secondary, accent, shift = 12) {
@@ -128,7 +128,7 @@ function generateRandomPalette() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// PRESETS (Built-in)
+//  PRESETS (Built-in)
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 const BUILTIN_PRESETS = [
@@ -156,7 +156,7 @@ const BUILTIN_PRESETS = [
 ];
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// LOCAL STORAGE
+//  LOCAL STORAGE
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 const STORAGE_KEY = 'jcink_palette_presets';
@@ -206,7 +206,7 @@ function getAllPresets() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// APPLY PALETTE TO PREVIEW
+//  APPLY PALETTE TO PREVIEW
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 let currentPalette = null;
@@ -220,6 +220,7 @@ function applyPaletteToPreview(p, dark) {
     const row2 = isDark ? p.row2Dark : p.row2Light;
 
     const preview = document.getElementById('forumPreview');
+    
     preview.style.setProperty('--bg', bg);
     preview.style.setProperty('--text', text);
     preview.style.setProperty('--border', border);
@@ -234,74 +235,138 @@ function applyPaletteToPreview(p, dark) {
     preview.style.setProperty('--accent', p.accent);
     preview.style.setProperty('--accent-text', p.accentText);
 
-    document.querySelectorAll('.forum-table .row1, .forum-table .row2').forEach(row => {
-        row.style.backgroundColor = row.classList.contains('row1') ? bg : row2;
+    // Table rows
+    document.querySelectorAll('#forumPreview .row1').forEach(row => {
+        row.style.backgroundColor = bg;
+        row.style.color = text;
+    });
+    document.querySelectorAll('#forumPreview .row2').forEach(row => {
+        row.style.backgroundColor = row2;
         row.style.color = text;
     });
 
-    document.querySelectorAll('.forum-table a').forEach(link => {
+    // Links
+    document.querySelectorAll('#forumPreview .forum-table a').forEach(link => {
         link.style.color = p.primary;
     });
 
-    const header = document.querySelector('.forum-header');
-    header.style.backgroundColor = p.primary;
-    header.style.color = p.primaryText;
+    // Header
+    const header = document.querySelector('#forumPreview .forum-header');
+    if (header) {
+        header.style.backgroundColor = p.primary;
+        header.style.color = p.primaryText;
+    }
 
-    const nav = document.querySelector('.forum-nav');
-    nav.style.backgroundColor = p.secondary;
-    nav.style.color = p.secondaryText;
+    // Nav
+    const nav = document.querySelector('#forumPreview .forum-nav');
+    if (nav) {
+        nav.style.backgroundColor = p.bgDark;
+        nav.style.color = p.textDark;
+        // Update nav links
+        nav.querySelectorAll('a').forEach(link => {
+            if (link.style.color === 'var(--primary)' || link.textContent.includes('seed')) {
+                link.style.color = p.primary;
+                link.style.opacity = '1';
+                link.style.borderBottom = '2px solid ' + p.primary;
+            } else {
+                link.style.color = p.textDark;
+                link.style.opacity = '0.5';
+            }
+        });
+    }
 
-    document.querySelectorAll('.forum-category').forEach(cat => {
+    // Categories
+    document.querySelectorAll('#forumPreview .forum-category').forEach(cat => {
         cat.style.backgroundColor = p.primary;
         cat.style.color = p.primaryText;
     });
 
-    document.querySelectorAll('.forum-table th').forEach(th => {
-        th.style.backgroundColor = p.primaryLight;
-        th.style.color = p.primaryText;
+    // Table headers
+    document.querySelectorAll('#forumPreview .forum-table thead tr').forEach(tr => {
+        tr.style.backgroundColor = p.bgDark;
+        tr.style.color = p.textDark;
+        tr.style.borderBottom = '2px solid ' + p.accent;
     });
 
-    document.querySelectorAll('.badge-count').forEach(badge => {
+    // Badges
+    document.querySelectorAll('#forumPreview .badge-count').forEach(badge => {
         badge.style.backgroundColor = p.accent;
         badge.style.color = p.accentText;
     });
 
-    const input = document.querySelector('.forum-input');
-    if (input) {
+    // Inputs
+    document.querySelectorAll('#forumPreview .forum-input').forEach(input => {
         input.style.backgroundColor = bg;
         input.style.color = text;
         input.style.borderColor = border;
-    }
+    });
 
-    document.querySelectorAll('.forum-btn:not(.forum-btn-secondary)').forEach(btn => {
+    // Buttons
+    document.querySelectorAll('#forumPreview .forum-btn:not(.forum-btn-secondary)').forEach(btn => {
         btn.style.backgroundColor = p.primary;
         btn.style.color = p.primaryText;
     });
-    document.querySelectorAll('.forum-btn-secondary').forEach(btn => {
+    document.querySelectorAll('#forumPreview .forum-btn-secondary').forEach(btn => {
         btn.style.backgroundColor = p.secondary;
         btn.style.color = p.secondaryText;
     });
 
-    const footer = document.querySelector('.forum-footer');
-    footer.style.borderTopColor = border;
-    footer.style.color = text;
+    // Stats bar
+    document.querySelectorAll('#forumPreview .forum-content > div:last-child').forEach(stat => {
+        if (stat.style.background && stat.style.borderLeft) {
+            stat.style.background = p.bgDark;
+            stat.style.color = p.textDark;
+            stat.style.borderLeft = '4px solid ' + p.accent;
+            // Update stat numbers
+            stat.querySelectorAll('strong').forEach((strong, idx) => {
+                if (idx === 0) strong.style.color = p.primary;
+                else if (idx === 1) strong.style.color = p.secondary;
+                else if (idx === 2) strong.style.color = p.accent;
+            });
+        }
+    });
 
-    document.querySelectorAll('.pagination span').forEach(page => {
-        if (page.classList.contains('active')) {
+    // Footer
+    const footer = document.querySelector('#forumPreview .forum-footer');
+    if (footer) {
+        footer.style.borderTopColor = border;
+        footer.style.color = text;
+    }
+
+    // Pagination
+    document.querySelectorAll('#forumPreview .pagination span').forEach(page => {
+        if (page.textContent === '01' || page.classList.contains('active')) {
             page.style.backgroundColor = p.primary;
             page.style.color = p.primaryText;
         } else {
             page.style.backgroundColor = border;
             page.style.color = text;
+            page.style.opacity = '0.5';
         }
     });
 
-    const toggleBtn = document.getElementById('toggleThemeBtn');
-    toggleBtn.textContent = isDark ? '☀️ Light' : '🌙 Dark';
+    // Container
+    preview.style.backgroundColor = bg;
+    preview.style.color = text;
+    preview.style.borderColor = border;
+
+    // Update ALL toggle buttons
+    const toggleBtns = document.querySelectorAll('#toggleThemeBtn, #previewToggleBtn');
+    toggleBtns.forEach(btn => {
+        btn.textContent = isDark ? '☀️ Light' : '🌙 Dark';
+        btn.className = isDark ? 'btn btn-secondary' : 'btn btn-success';
+    });
+
+    // Update contrast label
+    const label = document.getElementById('demoContrastLabel');
+    if (label) {
+        label.textContent = isDark ? '🌙 dark mode' : '☀️ light mode';
+        label.style.color = text;
+    }
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// CSS EXPORTER
+//  CSS EXPORTER
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function paletteToCss(p) {
@@ -441,7 +506,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// UI RENDERER
+//  UI RENDERER — Shows BOTH Light & Dark Mode Colors
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 const container = document.getElementById('paletteContainer');
@@ -467,6 +532,17 @@ const displayKeys = [
     'accent', 'accentLight', 'accentDark',
 ];
 
+const neutralKeys = [
+    { key: 'bgLight', label: 'BG Light' },
+    { key: 'textLight', label: 'Text Light' },
+    { key: 'borderLight', label: 'Border Light' },
+    { key: 'row2Light', label: 'Row 2 Light' },
+    { key: 'bgDark', label: 'BG Dark' },
+    { key: 'textDark', label: 'Text Dark' },
+    { key: 'borderDark', label: 'Border Dark' },
+    { key: 'row2Dark', label: 'Row 2 Dark' },
+];
+
 function renderPalette(palette) {
     currentPalette = palette;
     container.innerHTML = '';
@@ -474,23 +550,20 @@ function renderPalette(palette) {
     displayKeys.forEach(key => {
         const hex = palette[key];
         if (!hex) return;
-        const card = document.createElement('div');
-        card.className = 'color-card';
-        const contrast = getContrastColor(hex);
-        if (contrast === '#0f172a') card.classList.add('dark-text');
-        card.style.backgroundColor = hex;
-        card.style.color = contrast;
+        const card = createColorCard(hex, roleLabels[key] || key);
+        container.appendChild(card);
+    });
 
-        const label = roleLabels[key] || key;
-        card.innerHTML = `
-            <div class="hex">${hex}</div>
-            <div class="role">${label}</div>
-        `;
-        card.title = `Click to copy ${hex}`;
-        card.addEventListener('click', () => {
-            navigator.clipboard.writeText(hex);
-            showToast(`✅ Copied ${hex}`);
-        });
+    const divider = document.createElement('div');
+    divider.className = 'section-divider';
+    divider.textContent = '⚡ Light Mode · Dark Mode';
+    container.appendChild(divider);
+
+    neutralKeys.forEach(({ key, label }) => {
+        const hex = palette[key];
+        if (!hex) return;
+        const mode = key.includes('Dark') ? '🌙 Dark' : '☀️ Light';
+        const card = createColorCard(hex, label, mode);
         container.appendChild(card);
     });
 
@@ -508,6 +581,43 @@ function renderPalette(palette) {
             showToast('✅ CSS copied!');
         });
         cssOutput.appendChild(btn);
+    }
+
+    updateContrastLabel(palette);
+}
+
+function createColorCard(hex, label, modeBadge = null) {
+    const card = document.createElement('div');
+    card.className = 'color-card';
+    const contrast = getContrastColor(hex);
+    if (contrast === '#0f172a') card.classList.add('dark-text');
+    card.style.backgroundColor = hex;
+    card.style.color = contrast;
+
+    let html = `
+        <div class="hex">${hex}</div>
+        <div class="role">${label}</div>
+    `;
+    if (modeBadge) {
+        html += `<div class="mode-badge">${modeBadge}</div>`;
+    }
+
+    card.innerHTML = html;
+    card.title = `Click to copy ${hex}`;
+    card.addEventListener('click', () => {
+        navigator.clipboard.writeText(hex);
+        showToast(`✅ Copied ${hex}`);
+    });
+    return card;
+}
+
+function updateContrastLabel(p) {
+    const label = document.getElementById('demoContrastLabel');
+    if (label) {
+        const bg = isDarkMode ? p.bgDark : p.bgLight;
+        const text = isDarkMode ? p.textDark : p.textLight;
+        label.textContent = isDarkMode ? '🌙 dark mode' : '☀️ light mode';
+        label.style.color = text;
     }
 }
 
@@ -584,7 +694,7 @@ function renderPresets() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// HELPERS
+//  HELPERS
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function showToast(msg) {
@@ -604,8 +714,16 @@ function getCurrentPresetData() {
     };
 }
 
+function toggleDarkMode() {
+    isDarkMode = !isDarkMode;
+    if (currentPalette) {
+        applyPaletteToPreview(currentPalette, isDarkMode);
+        updateContrastLabel(currentPalette);
+    }
+}
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// EVENTS
+//  EVENTS
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 document.getElementById('generateBtn').addEventListener('click', () => {
@@ -626,12 +744,8 @@ document.getElementById('randomBtn').addEventListener('click', () => {
     showToast('🎲 Random palette generated!');
 });
 
-document.getElementById('toggleThemeBtn').addEventListener('click', function() {
-    isDarkMode = !isDarkMode;
-    if (currentPalette) {
-        applyPaletteToPreview(currentPalette, isDarkMode);
-    }
-});
+document.getElementById('toggleThemeBtn').addEventListener('click', toggleDarkMode);
+document.getElementById('previewToggleBtn').addEventListener('click', toggleDarkMode);
 
 document.getElementById('savePresetBtn').addEventListener('click', () => {
     const data = getCurrentPresetData();
