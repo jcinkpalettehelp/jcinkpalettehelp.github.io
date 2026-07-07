@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎨 Jcink Palette Studio</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ─── HEADER ─── -->
+        <header class="header">
+            <h1>
+                🎨 Jcink Palette Studio
+                <span class="badge">Live Preview</span>
+                <span class="badge">Dark/Light Toggle</span>
+                <span class="badge badge-purple">Presets</span>
+                <span class="badge badge-green">💾 Save to Browser</span>
+            </h1>
+            <p class="subtitle">
+                Generate cohesive palettes, preview them live, save your favorites, and copy ready-to-use CSS for Jcink skins.
+            </p>
+        </header>
+
+        <!-- ─── CONTROLS ─── -->
+        <section class="controls">
+            <label>
+                Primary
+                <input type="color" id="primaryColor" value="#2563eb" />
+            </label>
+            <label>
+                Secondary
+                <input type="color" id="secondaryColor" value="#7c3aed" />
+            </label>
+            <label>
+                Accent
+                <input type="color" id="accentColor" value="#f59e0b" />
+            </label>
+            <label>
+                Shift
+                <input type="number" id="shiftAmount" value="12" min="5" max="30" />
+            </label>
+            <button class="btn" id="generateBtn">✨ Generate</button>
+            <button class="btn btn-secondary" id="randomBtn">🎲 Random</button>
+
+            <div class="controls-row">
+                <label>
+                    Preset Name
+                    <input type="text" id="presetNameInput" placeholder="My Palette" />
+                </label>
+                <button class="btn btn-success" id="savePresetBtn">💾 Save</button>
+                <button class="btn btn-red" id="clearPresetsBtn">🗑️ Clear All</button>
+                <button class="btn btn-success" id="toggleThemeBtn">🌙 Toggle Dark</button>
+            </div>
+        </section>
+
+        <!-- ─── PRESETS ─── -->
+        <section class="presets-section">
+            <h4>
+                📦 Your Presets
+                <span class="preset-hint">(click to load &bull; saved in your browser)</span>
+                <span id="presetCount" class="preset-count"></span>
+            </h4>
+            <div class="presets-grid" id="presetsGrid">
+                <!-- Presets rendered here -->
+            </div>
+        </section>
+
+        <!-- ─── PALETTE ─── -->
+        <section class="palette-section">
+            <div id="paletteContainer" class="palette-grid"></div>
+        </section>
+
+        <!-- ─── LIVE FORUM PREVIEW ─── -->
+        <section class="preview-section">
+            <h3>🔬 Live Forum Preview</h3>
+            <div id="forumPreview">
+                <!-- Forum Header -->
+                <div class="forum-header">
+                    <h2>🎯 Jcink Community</h2>
+                    <div class="user-info">
+                        👤 Welcome back, <span>Admin</span> &middot;
+                        <a href="#" style="color:inherit;opacity:0.8;">Logout</a>
+                    </div>
+                </div>
+
+                <!-- Forum Nav -->
+                <div class="forum-nav">
+                    <a href="#">🏠 Home</a>
+                    <a href="#">📋 Forums</a>
+                    <a href="#">📝 Topics</a>
+                    <a href="#">👥 Members</a>
+                    <a href="#">⚙️ Admin</a>
+                </div>
+
+                <!-- Forum Content -->
+                <div class="forum-content">
+                    <div class="forum-category">📁 General Discussion</div>
+                    <table class="forum-table">
+                        <thead>
+                            <tr>
+                                <th>Topic</th>
+                                <th style="width:80px;">Replies</th>
+                                <th style="width:140px;">Last Post</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row1">
+                                <td><a href="#">📢 Welcome to the community!</a></td>
+                                <td><span class="badge-count">24</span></td>
+                                <td>Today 3:45pm</td>
+                            </tr>
+                            <tr class="row2">
+                                <td><a href="#">💡 How to customize your Jcink skin</a></td>
+                                <td><span class="badge-count">18</span></td>
+                                <td>Today 2:30pm</td>
+                            </tr>
+                            <tr class="row1">
+                                <td><a href="#">🎨 Share your palette designs</a></td>
+                                <td><span class="badge-count">9</span></td>
+                                <td>Yesterday 9:15pm</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="forum-category" style="margin-top:1.5rem;">🛠️ Support &amp; Feedback</div>
+                    <table class="forum-table">
+                        <thead>
+                            <tr>
+                                <th>Topic</th>
+                                <th style="width:80px;">Replies</th>
+                                <th style="width:140px;">Last Post</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row1">
+                                <td><a href="#">🐛 Bug report: Dark mode issues</a></td>
+                                <td><span class="badge-count">6</span></td>
+                                <td>Today 11:20am</td>
+                            </tr>
+                            <tr class="row2">
+                                <td><a href="#">✨ Feature request: More color slots</a></td>
+                                <td><span class="badge-count">12</span></td>
+                                <td>Yesterday 6:45pm</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="forum-input-row">
+                        <input class="forum-input" placeholder="Search topics..." />
+                        <button class="forum-btn">🔍 Search</button>
+                        <button class="forum-btn forum-btn-secondary">➕ New Topic</button>
+                    </div>
+                </div>
+
+                <!-- Forum Footer -->
+                <div class="forum-footer">
+                    <span>📊 1,234 topics &bull; 8,901 posts</span>
+                    <div class="pagination">
+                        <span class="active">1</span>
+                        <span>2</span>
+                        <span>3</span>
+                        <span>4</span>
+                        <span>→</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── CSS OUTPUT ─── -->
+        <section class="code-section">
+            <div class="code-output" id="cssOutput">
+                <span class="comment">/* Click Generate or a preset to build your palette */</span>
+                <button class="copy-btn" id="copyCssBtn">📋 Copy CSS</button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ─── TOAST ─── -->
+    <div class="toast" id="toast">✅ Copied!</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
